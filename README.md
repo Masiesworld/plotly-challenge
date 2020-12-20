@@ -22,5 +22,5 @@ The following task is advanced and therefore optional.
 
 
 ## Deployment
-
+* See the deployed website at https://masiesworld.github.io/plotly-challenge/index.html
 * Deploy your app to a free static page hosting service, such as GitHub Pages. Submit the links to your deployment and your GitHub repo.
