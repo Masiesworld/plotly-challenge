@@ -82,22 +82,16 @@ function buildPlots(id){
 // Display Metadata info 
 function getMetadata(id) {
     d3.json("data/samples.json").then(function(data){
-       
-        console.log(`Id: ${id}`);
         if (id == undefined) { exit; }
 
         // find or filter the sample by id
         var idInput = data.names.indexOf(id);
-
-        console.log(`Id Input: ${idInput}`);
         var metadata = data.metadata[idInput];
-        console.log(`Here is my Meta: ${metadata}`);
 
         var panel = d3.select(".panel-body");
         panel.html("");
 
         var dataEntries = Object.entries(metadata);
-        console.log(` Data entries: ${dataEntries}`);
         dataEntries.forEach(function([key,value]){
             var row = panel.append("p")
                 .text(`\t${key.toUpperCase()}: ${value}`);
@@ -106,46 +100,48 @@ function getMetadata(id) {
 }
 
 // Optional: Belly washing frequency -- Gauge chart
-// function buildGaugeChart() {
-//     d3.json("data/samples.json").then(function(data){
-//         var id = data.metadata.id;
-//         var washFreq = data.metadata.map(d => d.wfreq);
+function buildGaugeChart(id) {
+    d3.json("data/samples.json").then(function(data){
+         // find or filter the sample by id
+         var idInput = data.names.indexOf(id);
+         var metadata = data.metadata[idInput];
+         var washFreq = metadata.wfreq;
 
-//         var data3 = [{
-//             domain: { x: [0, 1], y: [0, 1] },
-// 		    value: washFreq,
-// 		    title: { text: " Belly Button Washing Frequency" },
-// 		    type: "indicator",
-//             mode: "gauge+number",
-//             gauge:{
-//                 axis:{ range:[null,9]},
-//                 bar: { color: "#425c53"},
-//                 bgcolor: "white",
-//                 borderwidth: 2,
-//                 bordercolor: "gray",
-//                 steps: [
-//                     {range: [0,1], color: "#f7faf9"},
-//                     {range: [1,2], color: "#e9f5f1"},
-//                     {range: [2,3], color: "#d1e6df"},
-//                     {range: [3,4], color: "#b6d4ca"},
-//                     {range: [4,5], color: "#9bbfb3"},
-//                     {range: [5,6], color: "#7ea89a"},
-//                     {range: [6,7], color: "#5f9482"},
-//                     {range: [7,8], color: "#397561"},
-//                     {range: [8,9], color: "#1b523f"},
-//                 ]
-//             }
-//          }];
-//         var layout3 = { 
-//             width: 600, 
-//             height: 500, 
-//             margin: { t: 10, r: 10, l:10, b:10 }, 
-//             paper_bgcolor:"white",
-//             font:{color:"#2f3d38", family: "Arial"}
-//         };
-//         Plotly.newPlot("gauge", data3, layout3);
-//     });
-// }
+        var data3 = [{
+            domain: { x: [0, 1], y: [0, 1] },
+		    value: washFreq,
+		    title: { text: " Belly Button Washing Frequency" },
+		    type: "indicator",
+            mode: "gauge+number",
+            gauge:{
+                axis:{ range:[null,9]},
+                bar: { color: "#425c53"},
+                bgcolor: "white",
+                borderwidth: 2,
+                bordercolor: "gray",
+                steps: [
+                    {range: [0,1], color: "#f7faf9"},
+                    {range: [1,2], color: "#e9f5f1"},
+                    {range: [2,3], color: "#d1e6df"},
+                    {range: [3,4], color: "#b6d4ca"},
+                    {range: [4,5], color: "#9bbfb3"},
+                    {range: [5,6], color: "#7ea89a"},
+                    {range: [6,7], color: "#5f9482"},
+                    {range: [7,8], color: "#397561"},
+                    {range: [8,9], color: "#1b523f"},
+                ]
+            }
+         }];
+        var layout3 = { 
+            width: 500, 
+            height: 500, 
+            margin: { t: 30, r: 50, l:50, b:30 }, 
+            paper_bgcolor:"white",
+            font:{color:"#2f3d38", family: "Arial"}
+        };
+        Plotly.newPlot("gauge", data3, layout3);
+    });
+}
 
 
 
@@ -156,6 +152,7 @@ d3.selectAll("select").on("change",updatePlotly);
 function updatePlotly(id) {
     buildPlots(id);
     getMetadata(id);
+    buildGaugeChart(id);
 }
 
 // Default function
@@ -171,6 +168,7 @@ function init() {
         console.log(`Default Name: ${defaultName}`);
         buildPlots(defaultName);
         getMetadata(defaultName);
+        buildGaugeChart(defaultName);
     });
     
     
