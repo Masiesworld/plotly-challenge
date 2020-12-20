@@ -8,3 +8,19 @@ The dataset reveals that a small handful of microbial species (also called opera
 4. Display the sample metadata, i.e., an individual's demographic information.  
 5. Display each key-value pair from the metadata JSON object somewhere on the page. 
 6. Update all of the plots any time that a new sample is selected.  Additionally, you are welcome to create any layout that you would like for the dashboard. 
+
+## Advanced Challenge Assignment (Optional)
+
+The following task is advanced and therefore optional.
+
+* Adapt the Gauge Chart from <https://plot.ly/javascript/gauge-charts/> to plot the weekly washing frequency of the individual.
+
+* You will need to modify the example gauge code to account for values ranging from 0 through 9.
+
+* Update the chart whenever a new sample is selected.
+
+
+
+## Deployment
+
+* Deploy your app to a free static page hosting service, such as GitHub Pages. Submit the links to your deployment and your GitHub repo.
